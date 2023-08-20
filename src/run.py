@@ -1,5 +1,6 @@
 import imagefeatureextractor
 from user_feature import *
+from imagefeatureextractor import ImageFeatureExtractor
 
 def process_item():
     extract = imagefeatureextractor.ImageFeatureExtractor()
@@ -22,7 +23,6 @@ def main():
 
     # turn product attribute to feature tensor
     process_item()
-
     # turn user preference to tensor
     
     
