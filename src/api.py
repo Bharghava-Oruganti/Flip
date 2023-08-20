@@ -6,22 +6,26 @@ class API():
     def __init__(self):
         self.user_data = json.load(open('./final3.json'))
         self.product_data = json.load(open('./productfinal.json'))
-        self.db_user = Users()
+        # self.db_user = Users()
         # self.db_product = Products()
         pass
     
     
-    def get_users_attributes(self):
+    def get_user_attributes(self):
         # print(type(user_data))
         # print(user_data)
-        columns = []
-        column = []
+        ret = []
         for user in self.user_data:
-            for data_obj in self.user_data[user]:
-                column = list(data_obj.keys())
-                for col in column:
-                    if col not in columns:
-                        columns.append(col)
+            ret.append((user, self.user_data[user]))
+        return ret
+        # columns = []
+        # column = []
+        # for user in self.user_data:
+        #     for data_obj in self.user_data[user]:
+        #         column = list(data_obj.keys())
+        #         for col in column:
+        #             if col not in columns:
+        #                 columns.append(col)
         
         return columns
 
@@ -38,23 +42,26 @@ class API():
         rows = self.db_user.cursor.fetchall()
         return rows[0]
 
-    def get_products_attributes(self):
+    def get_products_attributes(self, Id):
         # print(type(user_data))
         # print(user_data)
-        columns = []
-        column = []
-        for product in self.product_data:
-            for data_obj in self.product_data[product]:
-                column = list(data_obj.keys())
-                for col in column:
-                    if col not in columns:
-                        columns.append(col)
-
-        return columns
+        return self.product_data[Id]
 
 
-api = API()
-obj = [1,2,3]
-api.store_user_features('A3NHUQ33CFH3VM',str(obj))
-row = api.get_user_features('A3NHUQ33CFH3VM')
-print(row)
+        # columns = []
+        # column = []
+        # for product in self.product_data:
+        #     for data_obj in self.product_data[product]:
+        #         column = list(data_obj.keys())
+        #         for col in column:
+        #             if col not in columns:
+        #                 columns.append(col)
+
+        # return columns
+
+
+# api = API()
+# obj = [1,2,3]
+# api.store_user_features('A3NHUQ33CFH3VM',str(obj))
+# row = api.get_user_features('A3NHUQ33CFH3VM')
+# print(row)

@@ -3,7 +3,7 @@ from PIL import Image
 import torch
 from matplotlib import pyplot as plt
 import urllib
-
+import urllib.request
 # Check if CUDA is available
 cuda_available = torch.cuda.is_available()
 
@@ -26,8 +26,8 @@ class ImageFeatureExtractor():
             list_images = []
             for img in self.files:
                 url, filename = (img, "download.jpg")
-                try: urllib.URLopener().retrieve(url, filename)
-                except: urllib.request.urlretrieve(url, filename)
+                # urllib.request.urlretrieve(url, filename)
+
 
                 image = Image.open(filename)
                 new_size = (224, 224)  # Replace with the desired dimensions

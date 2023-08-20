@@ -41,11 +41,12 @@ class TextToFeature():
     def __init__(self):
         self.tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
         self.model = AutoModel.from_pretrained("bert-base-uncased")
-        self.next_model = self.model.clone()
+        # self.next_model = self.model.clone()
     def predict(self, text):
         inputs = self.tokenizer(text, return_tensors = "pt", padding = True, truncation = True) 
         with torch.no_grad():
             outputs = self.model(**inputs)
+        outputs = outputs.last_hidden_state
         return outputs[:, -1, :]
     def train(self, first_data, second_data, num_epochs):
         
