@@ -1,10 +1,12 @@
+from imagefeatureextractor import ImageFeatureExtractor
+
+
 def process_item():
     pass
 def initialize_users():
     pass
 
 def main():
-    process_item()
 
     pass
 
