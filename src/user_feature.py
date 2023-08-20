@@ -4,13 +4,14 @@ import torch.functional as F
 import torch.optim as optim
 
 class AutoEncoder(nn.Module):
-    def __init__(self, input_size, num_layers, hidden_size, encode_size):
+    def __init__(self, input_size, num_layers, hidden_size, encode_size, model_name):
         super(AutoEncoder, self).__init__()
         self.input_size = input_size
         self.num_layers = num_layers
         self.hidden_size = hidden_size
         self.lstm = nn.LSTM(input_size = input_size, num_layers = num_layers, hidden_size = hidden_size, batch_first = True)
-
+        self.model_name = model_name
+        self.load_model(model_name)
         self.encoder = nn.Sequential(
             nn.Linear(hidden_size, 1000),
             nn.ReLU(),
@@ -43,9 +44,12 @@ class AutoEncoder(nn.Module):
                 optimizer.step()
                 total_loss += loss.item()
             print(f"Epoch [{epoch+1}/{num_epochs}] Loss: {total_loss / len(train_loader):.4f}")
-
-
-
-
-
-
+        self.save_model(self.model_name)
+    def save_model(self, output_model = "model.pth"):
+        torch.save(self.state_dict(), output_model)
+    def load_model(self, input_model):
+        try:
+            self.load_state_dict(torch.load(input_model))
+        except FileNotFoundError:
+            print("Model not loaded")
+        
