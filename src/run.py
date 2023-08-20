@@ -1,9 +1,9 @@
-import imagefeatureextractor
+from imagefeatureextractor import *
 from user_feature import *
 from imagefeatureextractor import ImageFeatureExtractor
 
 def process_item():
-    extract = imagefeatureextractor.ImageFeatureExtractor()
+    extract = ImageFeatureExtractor()
     pass
 def initialize_users(input_size, num_layers, hidden_size, encode_size, model_name, train_model = True):
     encoder = AutoEncoder(input_size = input_size, 
