@@ -39,8 +39,7 @@ class TextToFeature():
         self.model = AutoModel.from_pretrained("bert-base-uncased")
         self.next_model = self.model.clone()
     def predict(self, text):
-        inputs = self.tokenizer(text, return_tensors = "pt", padding = True, truncation = True)
-        
+        inputs = self.tokenizer(text, return_tensors = "pt", padding = True, truncation = True) 
         with torch.no_grad():
             outputs = self.model(**inputs)
         return outputs[:, -1, :]
