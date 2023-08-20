@@ -9,8 +9,6 @@ class AutoEncoder(nn.Module):
         self.input_size = input_size
         self.num_layers = num_layers
         self.hidden_size = hidden_size
-        # self.loss = nn.MSELoss()
-        # self.optimizer = optim.Adam(self.parameters(), lr = 0.001)
         self.lstm = nn.LSTM(input_size = input_size, num_layers = num_layers, hidden_size = hidden_size, batch_first = True)
 
         self.encoder = nn.Sequential(
@@ -32,4 +30,22 @@ class AutoEncoder(nn.Module):
         out = out[-1]
         out = self.encoder(out)
         return out
+    def train_model(self, train_loader, num_epochs, learning_rate):
+        criterion = nn.MSELoss()
+        optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+        for epoch in range(num_epochs):
+            total_loss = 0
+            for inputs, targets in train_loader:
+                optimizer.zero_grad()
+                outputs = self(inputs)
+                loss = criterion(outputs, targets)
+                loss.backward()
+                optimizer.step()
+                total_loss += loss.item()
+            print(f"Epoch [{epoch+1}/{num_epochs}] Loss: {total_loss / len(train_loader):.4f}")
+
+
+
+
+
 
